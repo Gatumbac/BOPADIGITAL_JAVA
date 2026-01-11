@@ -1,11 +1,12 @@
 package Employability;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JobVacancy {
 
-	Collection<JobApplication> vacancy;
+	private List<JobApplication> applications;
 	private String title;
 	private String description;
 	private String[] requirements;
@@ -31,18 +32,26 @@ public class JobVacancy {
 	}
 
 	public boolean isActive() {
-		// TODO - implement JobVacancy.isActive
-		throw new UnsupportedOperationException();
+		boolean expired = this.isExpired();
+		boolean active = false;
+		if (this.isActive && !expired) {
+			active = true;
+		}
+		return active;
 	}
 
 	public boolean isExpired() {
-		// TODO - implement JobVacancy.isExpired
-		throw new UnsupportedOperationException();
+		LocalDateTime now = LocalDateTime.now();
+		boolean expired = now.isAfter(closingDate);
+		return expired;
 	}
 
 	public boolean isPublished() {
-		// TODO - implement JobVacancy.isPublished
-		throw new UnsupportedOperationException();
+		return this.isPublished;
+	}
+
+	public void addApplication(JobApplication application) {
+		this.applications.add(application);
 	}
 
 }

@@ -4,7 +4,7 @@ import Employability.*;
 
 public class CandidateResume extends BaseDocument {
 
-	SalesAdvisorCandidate candidate;
+	private SalesAdvisorCandidate candidate;
 
 	@Override
 	public String[] getAllowedExtensions() {

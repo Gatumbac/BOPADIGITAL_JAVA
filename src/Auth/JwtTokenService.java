@@ -13,4 +13,10 @@ public class JwtTokenService implements TokenService {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'validateToken'");
   }
+
+  @Override
+  public SystemUser getUserFromToken(String token) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getUserFromToken'");
+  }
 }

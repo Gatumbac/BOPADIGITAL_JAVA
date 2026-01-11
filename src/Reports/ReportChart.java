@@ -2,8 +2,8 @@ package Reports;
 
 public class ReportChart {
 
-	Report report;
-	ChartType type;
+	private Report report;
+	private ChartType type;
 	private String title;
 	private String description;
 	private String[] labels;

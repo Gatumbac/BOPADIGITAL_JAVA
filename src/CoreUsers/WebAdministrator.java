@@ -5,22 +5,22 @@ import Employability.*;
 
 public class WebAdministrator extends Employee {
 
-	/**
-	 * 
-	 * @param facade
-	 */
-	public void manageContent(CMSFacade facade) {
-		// TODO - implement WebAdministrator.manageContent
-		throw new UnsupportedOperationException();
+	// SD-CMS-001: Crear item en catálogo (dentro de una categoría)
+	public boolean createCatalogItem(CMSFacade facade, String categoryName, CatalogItem item) {
+		boolean wasCreated = facade.addItemToCategory(categoryName, item);
+		return wasCreated;
 	}
 
-	/**
-	 * 
-	 * @param facade
-	 */
-	public void manageVacancies(VacancyFacade facade) {
-		// TODO - implement WebAdministrator.manageVacancies
-		throw new UnsupportedOperationException();
+	// SD-CMS-002: Editar contenido web (CompanyInfo)
+	public boolean editCompanyContent(CMSFacade facade, String key, String newContent) {
+		boolean wasEdited = facade.editCompanyInfo(key, newContent);
+		return wasEdited;
+	}
+
+	// SD-EMP-003: Evaluar postulación
+	public void evaluateApplication(JobApplication application, boolean isApproved) {
+		ApplicationState currentState = application.getCurrentState();
+		currentState.evaluate(isApproved);
 	}
 
 }

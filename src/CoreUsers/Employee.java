@@ -4,7 +4,7 @@ import Auth.*;
 
 public abstract class Employee {
 
-	SystemUser credentials;
+	private SystemUser credentials;
 	private String employeeCode;
 	private String firstName;
 	private String secondName;
@@ -12,8 +12,13 @@ public abstract class Employee {
 	private String secondLastName;
 
 	public String getFullName() {
-		// TODO - implement Employee.getFullName
-		throw new UnsupportedOperationException();
+		String fullName = this.firstName + " " + this.lastName;
+		return fullName;
+	}
+
+	public String getEmail() {
+		String email = this.credentials.getEmail();
+		return email;
 	}
 
 }

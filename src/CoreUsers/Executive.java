@@ -1,34 +1,38 @@
 package CoreUsers;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import Reports.*;
 
 public class Executive extends ImmediateSupervisor {
 
-	Collection<SalesObjective> objectives;
+	private List<SalesObjective> objectives;
 	private String managementRegion;
 
-	/**
-	 * 
-	 * @param objective
-	 */
+	public Executive() {
+		super();
+		this.objectives = new ArrayList<>();
+	}
+
 	public void defineStrategicObjetctive(SalesObjective objective) {
-		// TODO - implement Executive.defineStrategicObjetctive
-		throw new UnsupportedOperationException();
+		this.objectives.add(objective);
 	}
 
-	/**
-	 * 
-	 * @param zone
-	 */
 	public boolean managesZone(String zone) {
-		// TODO - implement Executive.managesZone
-		throw new UnsupportedOperationException();
+		boolean manages = this.managementRegion != null && this.managementRegion.equals(zone);
+		return manages;
 	}
 
-	public void generateReport() {
-		// TODO - implement Executive.generateReport
-		throw new UnsupportedOperationException();
+	// SD-REP-001: Generar reporte gerencial
+	public CommercialPerformanceReport generateReport(ReportFacade facade, ReportFilter filter) {
+		CommercialPerformanceReport report = facade.generateManagerReport(this, filter);
+		return report;
+	}
+
+	// SD-REP-002: Exportar reporte a PDF
+	public void exportReportToPdf(Report report) {
+		PDFExporter pdfExporter = new PDFExporter();
+		report.exportData(pdfExporter);
 	}
 
 }

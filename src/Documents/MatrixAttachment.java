@@ -4,7 +4,7 @@ import OfferMatrices.*;
 
 public class MatrixAttachment extends BaseDocument {
 
-	OfferMatrix matrix;
+	private OfferMatrix matrix;
 	private String description;
 	@Override
 	public String[] getAllowedExtensions() {

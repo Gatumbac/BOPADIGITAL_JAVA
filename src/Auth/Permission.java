@@ -6,14 +6,10 @@ public class Permission {
 	private String resourceCode;
 	private String action;
 
-	/**
-	 * 
-	 * @param resource
-	 * @param action
-	 */
 	public boolean checkMatch(String resource, String action) {
-		// TODO - implement Permission.checkMatch
-		throw new UnsupportedOperationException();
+		boolean matchResource = this.resourceCode.equals(resource);
+		boolean matchAction = this.action.equals(action);
+		return matchResource && matchAction;
 	}
 
 }

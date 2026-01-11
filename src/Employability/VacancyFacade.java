@@ -4,11 +4,19 @@ import java.util.*;
 
 public class VacancyFacade {
 
-	Collection<JobVacancy> vacancies;
+	private List<JobVacancy> vacancies;
 
-	public JobVacancy[] getActiveVacancies() {
-		// TODO - implement VacancyFacade.getActiveVacancies
-		throw new UnsupportedOperationException();
+	// SD-EMP-001: Ver vacantes activas
+	public List<JobVacancy> getActiveVacancies() {
+		List<JobVacancy> activeList = new ArrayList<>();
+		for (JobVacancy vacancy : vacancies) {
+			boolean isActive = vacancy.isActive();
+			boolean isPublished = vacancy.isPublished();
+			if (isActive && isPublished) {
+				activeList.add(vacancy);
+			}
+		}
+		return activeList;
 	}
 
 	/**

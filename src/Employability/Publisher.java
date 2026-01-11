@@ -1,32 +1,29 @@
 package Employability;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Publisher {
 
-	Collection<Subscriber> subscribers;
+	private List<Subscriber> subscribers;
 
-	/**
-	 * 
-	 * @param observer
-	 */
+	public Publisher() {
+		this.subscribers = new ArrayList<>();
+	}
+
 	public void subscribe(Subscriber observer) {
-		// TODO - implement Publisher.subscribe
-		throw new UnsupportedOperationException();
+		subscribers.add(observer);
 	}
 
-	/**
-	 * 
-	 * @param observer
-	 */
 	public void unsubscribe(Subscriber observer) {
-		// TODO - implement Publisher.unsubscribe
-		throw new UnsupportedOperationException();
+		subscribers.remove(observer);
 	}
 
+	// SD-EMP-004: Notificar a todos los suscriptores
 	public void notifySubscribers() {
-		// TODO - implement Publisher.notifySubscribers
-		throw new UnsupportedOperationException();
+		for (Subscriber subscriber : subscribers) {
+			subscriber.update((NotifiableEntity) this);
+		}
 	}
 
 }

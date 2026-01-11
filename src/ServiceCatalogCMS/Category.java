@@ -1,39 +1,64 @@
 package ServiceCatalogCMS;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Category extends CatalogComponent {
 
-	Collection<CatalogComponent> children;
+	private List<CatalogComponent> children;
 
-	/**
-	 * 
-	 * @param component
-	 */
+	public Category() {
+		this.children = new ArrayList<>();
+	}
+
+	// SD-CMS-001: Agregar componente hijo
 	public boolean add(CatalogComponent component) {
-		// TODO - implement Category.add
-		throw new UnsupportedOperationException();
+		boolean wasAdded = this.children.add(component);
+		return wasAdded;
 	}
 
-	/**
-	 * 
-	 * @param component
-	 */
 	public boolean remove(CatalogComponent component) {
-		// TODO - implement Category.remove
-		throw new UnsupportedOperationException();
+		boolean wasRemoved = this.children.remove(component);
+		return wasRemoved;
 	}
 
-	public CatalogComponent[] getItems() {
-		// TODO - implement Category.getItems
-		throw new UnsupportedOperationException();
+	// SD-CAT-001: Obtener ítems de la categoría (Composite)
+	public List<CatalogComponent> getItems() {
+		List<CatalogComponent> items = new ArrayList<>(this.children);
+		return items;
+	}
+
+	// SD-CAT-001: Búsqueda recursiva en hijos
+	@Override
+	public List<CatalogComponent> search(String keyword) {
+		List<CatalogComponent> results = super.search(keyword);
+		for (CatalogComponent child : this.children) {
+			List<CatalogComponent> childResults = child.search(keyword);
+			results.addAll(childResults);
+		}
+		return results;
+	}
+
+	// SD-CAT-002: Filtrado recursivo en hijos
+	@Override
+	public List<CatalogComponent> filter(CatalogFilterCriteria criteria) {
+		List<CatalogComponent> results = new ArrayList<>();
+		for (CatalogComponent child : this.children) {
+			List<CatalogComponent> childResults = child.filter(criteria);
+			results.addAll(childResults);
+		}
+		return results;
 	}
 
 	@Override
 	public BigDecimal getPrice() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPrice'");
+		BigDecimal total = BigDecimal.ZERO;
+		for (CatalogComponent child : this.children) {
+			BigDecimal childPrice = child.getPrice();
+			total = total.add(childPrice);
+		}
+		return total;
 	}
 
 }

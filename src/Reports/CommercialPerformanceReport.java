@@ -1,19 +1,31 @@
 package Reports;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import CoreUsers.*;
 
 public class CommercialPerformanceReport extends Report {
 
-	Collection<SalesAdvisor> analyzedAdvisors;
+	private List<SalesAdvisor> analyzedAdvisors;
+	private List<String> marketInsights;
 
-	/**
-	 * 
-	 * @param insight
-	 */
+	// SD-REP-001: Constructor para reporte gerencial
+	public CommercialPerformanceReport(Executive manager) {
+		super(manager, "Reporte de Desempeño Comercial");
+		this.analyzedAdvisors = new ArrayList<>();
+		this.marketInsights = new ArrayList<>();
+	}
+
+	public void addAnalyzedAdvisor(SalesAdvisor advisor) {
+		this.analyzedAdvisors.add(advisor);
+	}
+
 	public void addMarketInsight(String insight) {
-		// TODO - implement CommercialPerformanceReport.addMarketInsight
-		throw new UnsupportedOperationException();
+		this.marketInsights.add(insight);
+	}
+
+	public List<SalesAdvisor> getAnalyzedAdvisors() {
+		return this.analyzedAdvisors;
 	}
 
 }

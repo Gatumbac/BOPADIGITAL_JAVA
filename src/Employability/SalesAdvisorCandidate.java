@@ -1,13 +1,14 @@
 package Employability;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import Documents.*;
 
 public class SalesAdvisorCandidate {
 
-	Collection<JobApplication> applications;
-	Collection<CandidateResume> resumeHistory;
+	private List<JobApplication> applications;
+	private List<CandidateResume> resumeHistory;
 	private String name;
 	private String lastname;
 	private String email;
@@ -15,22 +16,31 @@ public class SalesAdvisorCandidate {
 	private String address;
 	private int applicationCount;
 
-	/**
-	 * 
-	 * @param vacancy
-	 */
-	public JobApplication applyToVacancy(JobVacancy vacancy) {
-		// TODO - implement SalesAdvisorCandidate.applyToVacancy
-		throw new UnsupportedOperationException();
+	// SD-EMP-001: Ver vacantes activas
+	public List<JobVacancy> viewActiveVacancies(VacancyFacade facade) {
+		List<JobVacancy> activeVacancies = facade.getActiveVacancies();
+		return activeVacancies;
 	}
 
-	/**
-	 * 
-	 * @param file
-	 */
+	// SD-EMP-002: Candidato envía postulación (con CV)
+	public JobApplication applyToVacancy(JobVacancy vacancy, File resumeFile) {
+		JobApplication application = new JobApplication(this, vacancy);
+		CandidateResume resume = this.uploadResume(resumeFile);
+		application.attachResume(resume);
+		vacancy.addApplication(application);
+		application.submit();	
+		return application;
+	}
+
 	public CandidateResume uploadResume(File file) {
-		// TODO - implement SalesAdvisorCandidate.uploadResume
-		throw new UnsupportedOperationException();
+		DocumentUploadService uploadService = DocumentUploadService.getInstance();
+		CandidateResumeFactory factory = new CandidateResumeFactory();
+		uploadService.setFactory(factory);
+		String destinationFolder = "resumes";
+		BaseDocument document = uploadService.uploadFile(file, destinationFolder);
+		CandidateResume resume = (CandidateResume) document;
+		this.resumeHistory.add(resume);
+		return resume;
 	}
 
 	public JobApplication[] getApplications() {

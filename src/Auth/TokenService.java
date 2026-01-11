@@ -8,10 +8,8 @@ public interface TokenService {
 	 */
 	String generateToken(SystemUser user);
 
-	/**
-	 * 
-	 * @param token
-	 */
 	boolean validateToken(String token);
+
+	SystemUser getUserFromToken(String token);
 
 }

@@ -6,41 +6,50 @@ import Documents.*;
 
 public class JobApplication extends Publisher implements NotifiableEntity {
 
-	JobVacancy applications;
-	SalesAdvisorCandidate candidate;
-	ApplicationState currentState;
-	CandidateResume attachedResume;
+	private JobVacancy vacancy;
+	private SalesAdvisorCandidate candidate;
+	private ApplicationState currentState;
+	private CandidateResume attachedResume;
 	private LocalDateTime applicationDate;
 	private String coverLetter;
 	private boolean isReviewed;
 	private String reviewNotes;
 	private String reviewDate;
 
-	/**
-	 * 
-	 * @param state
-	 */
-	public void changeState(ApplicationState state) {
-		// TODO - implement JobApplication.changeState
-		throw new UnsupportedOperationException();
+	public JobApplication(SalesAdvisorCandidate candidate, JobVacancy vacancy) {
+		super();
+		this.candidate = candidate;
+		this.vacancy = vacancy;
+		DraftState initialState = new DraftState();
+		this.currentState = initialState;
+		this.currentState.setContext(this);
+	}
+
+	public void changeState(ApplicationState newState) {
+		this.currentState = newState;
+		newState.setContext(this);
 	}
 
 	public ApplicationState getCurrentState() {
 		return this.currentState;
 	}
 
-	public void submit() {
-		// TODO - implement JobApplication.submit
-		throw new UnsupportedOperationException();
+	public void attachResume(CandidateResume resume) {
+		this.attachedResume = resume;
 	}
 
-	/**
-	 * 
-	 * @param isApproved
-	 */
+	// SD-EMP-004: Sistema notifica recepción (llamado internamente)
+	public void submit() {
+		ApplicationState state = this.currentState;
+		state.submitApplication();
+		this.notifySubscribers();
+	}
+
+	// SD-EMP-003: Evaluar postulación
 	public void evaluateApplication(boolean isApproved) {
-		// TODO - implement JobApplication.evaluateApplication
-		throw new UnsupportedOperationException();
+		ApplicationState state = this.currentState;
+		state.evaluate(isApproved);
+		this.notifySubscribers();
 	}
 
 	@Override

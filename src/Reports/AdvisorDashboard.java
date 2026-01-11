@@ -4,6 +4,12 @@ import CoreUsers.*;
 
 public class AdvisorDashboard extends Report {
 
-	SalesAdvisor advisor;
+	private SalesAdvisor advisor;
+
+	public AdvisorDashboard(Employee generatedBy, String title) {
+		super(generatedBy, title);
+		//TODO Auto-generated constructor stub
+	}
+
 
 }

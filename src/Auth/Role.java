@@ -1,20 +1,27 @@
 package Auth;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Role {
 
-	Collection<Permission> permissions;
+	private List<Permission> permissions;
 	private String name;
 	private String description;
 
-	/**
-	 * 
-	 * @param permission
-	 */
 	public boolean addPermission(Permission permission) {
-		// TODO - implement Role.addPermission
-		throw new UnsupportedOperationException();
+		return permissions.add(permission);
+	}
+
+	public boolean hasPermission(String resource, String action) {
+		boolean found = false;
+		for (Permission p : permissions) {
+			boolean matches = p.checkMatch(resource, action);
+			if (matches) {
+				found = true;
+			}
+		}
+		return found;
 	}
 
 }

@@ -4,44 +4,34 @@ import CoreUsers.*;
 
 public abstract class MatrixState {
 
-	OfferMatrix context;
+	protected OfferMatrix context;
 	private String name;
 	private String description;
 
-	/**
-	 * 
-	 * @param context
-	 */
 	public void setContext(OfferMatrix context) {
 		this.context = context;
 	}
 
+	public OfferMatrix getContext() {
+		return this.context;
+	}
+
+	// Por defecto no permite editar
 	public void editDetails() {
-		// TODO - implement MatrixState.editDetails
-		throw new UnsupportedOperationException();
+		// No hace nada en estados donde no se permite edición
 	}
 
+	// Por defecto no permite enviar a aprobación
 	public void sendForApproval() {
-		// TODO - implement MatrixState.sendForApproval
-		throw new UnsupportedOperationException();
+		// No hace nada en estados donde no se permite enviar
 	}
 
-	/**
-	 * 
-	 * @param supervisor
-	 */
 	public void approve(ImmediateSupervisor supervisor) {
-		// TODO - implement MatrixState.approve
-		throw new UnsupportedOperationException();
+		// No hace nada por defecto
 	}
 
-	/**
-	 * 
-	 * @param supervisor
-	 */
-	public void reject(ImmediateSupervisor supervisor) {
-		// TODO - implement MatrixState.reject
-		throw new UnsupportedOperationException();
+	public void reject(ImmediateSupervisor supervisor, String reason) {
+		// No hace nada por defecto
 	}
 
 }

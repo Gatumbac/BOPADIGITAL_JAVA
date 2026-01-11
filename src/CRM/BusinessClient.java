@@ -1,17 +1,19 @@
 package CRM;
 
 import CoreUsers.*;
+import ServiceCatalogCMS.*;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BusinessClient {
 
-	SalesAdvisor seller;
-	Collection<Visit> visitLog;
-	RUC ruc;
-	Collection<Negotiation> negotiationHistory;
-	private String bussinessName;
+	private SalesAdvisor seller;
+	private List<Visit> visitLog;
+	private RUC ruc;
+	private List<Negotiation> negotiationHistory;
+	private String businessName;
 	private int activeServicesCount;
 	private BigDecimal currentMonthlyBilling;
 	private boolean isActive;
@@ -20,52 +22,93 @@ public class BusinessClient {
 	private String contactPhone;
 	private String contactEmail;
 
+	// SD-CRM-001: Constructor para registro de cliente
+	public BusinessClient(String rucValue, String businessName, String contactName) {
+		this.ruc = new RUC(rucValue);
+		this.businessName = businessName;
+		this.contactName = contactName;
+		this.isActive = true;
+		this.visitLog = new ArrayList<>();
+		this.negotiationHistory = new ArrayList<>();
+	}
+
+	public RUC getRuc() {
+		return this.ruc;
+	}
+
+	// SD-CRM-008: Desactivar cliente
 	public void deactivate() {
-		// TODO - implement BusinessClient.deactivate
-		throw new UnsupportedOperationException();
+		this.isActive = false;
+		this.seller = null;
 	}
 
-	/**
-	 * 
-	 * @param services
-	 * @param billing
-	 */
-	public void updateCommercialInfo(int services, BigDecimal billing) {
-		// TODO - implement BusinessClient.updateCommercialInfo
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param advisor
-	 */
+	// SD-CRM-002: Asignar a asesor
 	public void assignToAdvisor(SalesAdvisor advisor) {
-		// TODO - implement BusinessClient.assignToAdvisor
-		throw new UnsupportedOperationException();
+		this.seller = advisor;
+		advisor.addClient(this);
 	}
 
 	public void unassignAdvisor() {
-		// TODO - implement BusinessClient.unassignAdvisor
-		throw new UnsupportedOperationException();
+		SalesAdvisor previousAdvisor = this.getSeller();
+		this.setSeller(null);
+		previousAdvisor.removeClient(this);
 	}
 
-	public String getElegibilityCategory() {
-		// TODO - implement BusinessClient.getElegibilityCategory
-		throw new UnsupportedOperationException();
+	// SD-CRM-007: Obtener historial de visitas
+	public List<Visit> getVisitHistory() {
+		List<Visit> history = new ArrayList<>(this.visitLog);
+		return history;
 	}
 
-	/**
-	 * 
-	 * @param visit
-	 */
 	public void addVisitToLog(Visit visit) {
-		// TODO - implement BusinessClient.addVisitToLog
-		throw new UnsupportedOperationException();
+		this.visitLog.add(visit);
 	}
 
 	public Negotiation getActiveNegotiation() {
-		// TODO - implement BusinessClient.getActiveNegotiation
-		throw new UnsupportedOperationException();
+		Negotiation activeNegotiation = null;
+		for (Negotiation negotiation : negotiationHistory) {
+			boolean isActive = negotiation.isActive();
+			if (isActive) {
+				activeNegotiation = negotiation;
+			}
+		}
+		return activeNegotiation;
+	}
+
+	public void addNegotiation(Negotiation negotiation) {
+		this.negotiationHistory.add(negotiation);
+	}
+
+	public boolean isActive() {
+		return this.isActive;
+	}
+
+	public SalesAdvisor getSeller() {
+		return this.seller;
+	}
+
+	public void setSeller(SalesAdvisor seller) {
+		this.seller = seller;
+	}
+
+	public BigDecimal getCurrentMonthlyBilling() {
+		return this.currentMonthlyBilling;
+	}
+
+	public int getActiveServicesCount() {
+		return this.activeServicesCount;
+	}
+
+	// SD-CAT-001: Navegar catálogo de servicios (búsqueda recursiva - Composite)
+	public List<CatalogComponent> searchCatalog(Catalog catalog, String keyword) {
+		List<CatalogComponent> results = catalog.search(keyword);
+		return results;
+	}
+
+	// SD-CAT-002: Filtrar servicios del catálogo
+	public List<CatalogComponent> filterServices(Catalog catalog, CatalogFilterCriteria criteria) {
+		List<CatalogComponent> results = catalog.filter(criteria);
+		return results;
 	}
 
 }

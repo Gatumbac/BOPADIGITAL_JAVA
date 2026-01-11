@@ -7,7 +7,7 @@ import CoreUsers.*;
 
 public class SalesObjective {
 
-	Executive manager;
+	private Executive manager;
 	private BigDecimal targetSalesAmount;
 	private int targetClosedDeals;
 	private Date periodStart;

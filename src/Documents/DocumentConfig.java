@@ -1,10 +1,11 @@
 package Documents;
 
 import java.util.Date;
+import CRM.Negotiation;
 
 public class DocumentConfig {
 
-	DocumentType type;
+	private DocumentType type;
 	private String filename;
 	private String fileExtension;
 	private double fileSizeMb;
@@ -15,71 +16,62 @@ public class DocumentConfig {
 	private Date reviewDate;
 	private String coordinatorMessage;
 	private String description;
+	private Negotiation negotiation;
 
-	/**
-	 * 
-	 * @param filename
-	 * @param fileExtension
-	 * @param fileSizeMb
-	 * @param storagePath
-	 */
-	public DocumentConfig(String filename, String fileExtension, double fileSizeMb, String storagePath) {
-		// TODO - implement DocumentConfig.DocumentConfig
-		throw new UnsupportedOperationException();
+	public DocumentConfig(String filename, String storagePath) {
+		this.filename = filename;
+		this.storagePath = storagePath;
 	}
 
-	/**
-	 * 
-	 * @param isMandatory
-	 */
 	public DocumentConfig withMandatory(boolean isMandatory) {
-		// TODO - implement DocumentConfig.withMandatory
-		throw new UnsupportedOperationException();
+		this.isMandatory = isMandatory;
+		return this;
 	}
 
-	/**
-	 * 
-	 * @param reviewDate
-	 */
 	public DocumentConfig withReviewDate(Date reviewDate) {
-		// TODO - implement DocumentConfig.withReviewDate
-		throw new UnsupportedOperationException();
+		this.reviewDate = reviewDate;
+		return this;
 	}
 
-	/**
-	 * 
-	 * @param message
-	 */
 	public DocumentConfig withCoordinatorMessage(String message) {
-		// TODO - implement DocumentConfig.withCoordinatorMessage
-		throw new UnsupportedOperationException();
+		this.coordinatorMessage = message;
+		return this;
 	}
 
-	/**
-	 * 
-	 * @param type
-	 */
 	public DocumentConfig withDocumentType(DocumentType type) {
-		// TODO - implement DocumentConfig.withDocumentType
-		throw new UnsupportedOperationException();
+		this.type = type;
+		return this;
 	}
 
-	/**
-	 * 
-	 * @param mimeType
-	 */
 	public DocumentConfig withMimeType(String mimeType) {
-		// TODO - implement DocumentConfig.withMimeType
-		throw new UnsupportedOperationException();
+		this.mimeType = mimeType;
+		return this;
 	}
 
-	/**
-	 * 
-	 * @param description
-	 */
 	public DocumentConfig withDescription(String description) {
-		// TODO - implement DocumentConfig.withDescription
-		throw new UnsupportedOperationException();
+		this.description = description;
+		return this;
+	}
+
+	public DocumentConfig withNegotiation(Negotiation negotiation) {
+		this.negotiation = negotiation;
+		return this;
+	}
+
+	public String getFilename() {
+		return this.filename;
+	}
+
+	public String getStoragePath() {
+		return this.storagePath;
+	}
+
+	public DocumentType getType() {
+		return this.type;
+	}
+
+	public Negotiation getNegotiation() {
+		return this.negotiation;
 	}
 
 }

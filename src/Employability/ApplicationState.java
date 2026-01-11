@@ -2,7 +2,7 @@ package Employability;
 
 public abstract class ApplicationState {
 
-	JobApplication context;
+	protected JobApplication context;
 	private String name;
 	private String description;
 
@@ -15,22 +15,20 @@ public abstract class ApplicationState {
 	}
 
 	public void submitApplication() {
-		// TODO - implement ApplicationState.submitApplication
-		throw new UnsupportedOperationException();
+		PendingState nextState = new PendingState();
+		context.changeState(nextState);
 	}
 
-	public boolean validateApplication() {
-		// TODO - implement ApplicationState.validateApplication
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param isApproved
-	 */
 	public void evaluate(boolean isApproved) {
-		// TODO - implement ApplicationState.evaluate
-		throw new UnsupportedOperationException();
+		ApplicationState nextState;
+		if (isApproved) {
+			AcceptedState acceptedState = new AcceptedState();
+			nextState = acceptedState;
+		} else {
+			RejectedState rejectedState = new RejectedState();
+			nextState = rejectedState;
+		}
+		context.changeState(nextState);
 	}
 
 }

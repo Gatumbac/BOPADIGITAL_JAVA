@@ -4,44 +4,28 @@ import CoreUsers.*;
 
 public abstract class DocumentNegotiationState {
 
-	NegotiationDocument context;
+	protected NegotiationDocument context;
 	private String name;
 	private String description;
 
-	/**
-	 * 
-	 * @param context
-	 */
 	public void setContext(NegotiationDocument context) {
 		this.context = context;
 	}
 
-	/**
-	 * 
-	 * @param coordinator
-	 */
+	public NegotiationDocument getContext() {
+		return this.context;
+	}
+
 	public void approve(Coordinator coordinator) {
-		// TODO - implement DocumentNegotiationState.approve
-		throw new UnsupportedOperationException();
+		// Por defecto no hace nada
 	}
 
-	/**
-	 * 
-	 * @param coordinator
-	 */
-	public void reject(Coordinator coordinator) {
-		// TODO - implement DocumentNegotiationState.reject
-		throw new UnsupportedOperationException();
+	public void reject(Coordinator coordinator, String reason) {
+		// Por defecto no hace nada
 	}
 
-	/**
-	 * 
-	 * @param newFilePath
-	 * @param newSize
-	 */
 	public void replaceFile(String newFilePath, double newSize) {
-		// TODO - implement DocumentNegotiationState.replaceFile
-		throw new UnsupportedOperationException();
+		// Por defecto no hace nada
 	}
 
 }

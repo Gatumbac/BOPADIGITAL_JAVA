@@ -2,19 +2,13 @@ package Documents;
 
 public abstract class DocumentFactory {
 
-	/**
-	 * 
-	 * @param config
-	 */
 	public abstract BaseDocument createDocument(DocumentConfig config);
 
-	/**
-	 * 
-	 * @param config
-	 */
+	// Template Method: crear y validar documento
 	public BaseDocument processDocument(DocumentConfig config) {
-		// TODO - implement DocumentFactory.processDocument
-		throw new UnsupportedOperationException();
+		BaseDocument document = this.createDocument(config);
+		document.validateFormat();
+		return document;
 	}
 
 }

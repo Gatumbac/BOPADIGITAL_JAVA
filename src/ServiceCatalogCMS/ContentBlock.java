@@ -2,17 +2,26 @@ package ServiceCatalogCMS;
 
 public class ContentBlock {
 
-	ContentType type;
+	private ContentType type;
 	private String key;
 	private String content;
 
-	/**
-	 * 
-	 * @param content
-	 */
-	public boolean updateContent(String content) {
-		// TODO - implement ContentBlock.updateContent
-		throw new UnsupportedOperationException();
+	public ContentBlock(String key, ContentType type) {
+		this.key = key;
+		this.type = type;
+	}
+
+	public boolean updateContent(String newContent) {
+		this.content = newContent;
+		return true;
+	}
+
+	public String getContent() {
+		return this.content;
+	}
+
+	public String getKey() {
+		return this.key;
 	}
 
 }

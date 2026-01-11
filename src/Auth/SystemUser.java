@@ -6,17 +6,20 @@ import CoreUsers.*;
 
 public class SystemUser {
 
-	Employee employee;
-	Role role;
+	private Employee employee;
+	private Role role;
 	private String email;
 	private String passwordHash;
 	private boolean isActive;
 	private LocalDateTime createdAt;
 	private LocalDateTime lastConnection;
 
+	public String getPasswordHash() {
+		return this.passwordHash;
+	}
+
 	public boolean verifyActive() {
-		// TODO - implement SystemUser.verifyActive
-		throw new UnsupportedOperationException();
+		return this.isActive;
 	}
 
 	/**
@@ -28,13 +31,13 @@ public class SystemUser {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param name
-	 */
-	public boolean hasPermission(String name) {
-		// TODO - implement SystemUser.hasPermission
-		throw new UnsupportedOperationException();
+	public boolean hasPermission(String resource, String action) {
+		boolean hasPermission = role.hasPermission(resource, action);
+		return hasPermission;
+	}
+
+	public String getEmail() {
+		return this.email;
 	}
 
 }

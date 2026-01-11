@@ -13,6 +13,6 @@ public interface PasswordHasher {
 	 * @param plainPassword
 	 * @param hashPassword
 	 */
-	String verifyPassword(String plainPassword, String hashPassword);
+	boolean verifyPassword(String plainPassword, String hashPassword);
 
 }

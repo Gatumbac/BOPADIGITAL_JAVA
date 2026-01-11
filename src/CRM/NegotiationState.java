@@ -1,58 +1,40 @@
 package CRM;
 
-import Documents.BaseDocument;
 import Documents.NegotiationDocument;
 import OfferMatrices.OfferMatrix;
 
 public abstract class NegotiationState {
 
-	Negotiation context;
+	protected Negotiation context;
 	private String name;
 	private String description;
 
-	/**
-	 * 
-	 * @param context
-	 */
 	public void setContext(Negotiation context) {
 		this.context = context;
 	}
 
-	public void handleNextStage() {
-		// TODO - implement NegotiationState.handleNextStage
-		throw new UnsupportedOperationException();
+	public Negotiation getContext() {
+		return this.context;
 	}
+
+	// SD-CRM-006: Método abstracto para avanzar al siguiente estado
+	public abstract void handleNextStage();
 
 	public void handleCancellation() {
-		// TODO - implement NegotiationState.handleCancellation
-		throw new UnsupportedOperationException();
+		CanceledState canceledState = new CanceledState();
+		this.context.changeState(canceledState);
 	}
 
-	/**
-	 * 
-	 * @param visit
-	 */
 	public void registerVisit(Visit visit) {
-		// TODO - implement NegotiationState.registerVisit
-		throw new UnsupportedOperationException();
+		this.context.addVisitReport(visit);
 	}
 
-	/**
-	 * 
-	 * @param matrix
-	 */
 	public void generateOffer(OfferMatrix matrix) {
-		// TODO - implement NegotiationState.generateOffer
-		throw new UnsupportedOperationException();
+		this.context.addMatrix(matrix);
 	}
 
-	/**
-	 * 
-	 * @param doc
-	 */
 	public void attachDocument(NegotiationDocument doc) {
-		// TODO - implement NegotiationState.attachDocument
-		throw new UnsupportedOperationException();
+		this.context.addDocument(doc);
 	}
 
 }
